@@ -68,7 +68,10 @@
             z-index: 1000;
         }
     </style>
-    
+
+<!-- =============================================APLICAR BIBLIOTECA DE ALERTAS -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
 </head>
 <body>
     <header class="page-header py-5">
@@ -114,7 +117,9 @@
                                     <input type="text" class="form-control" id="cep" name="cep"
                                         placeholder="00000-000" inputmode="numeric"
                                         autocomplete="postal-code" maxlength="9" required>
+                                        <button class="btn btn-primary" id="buscarCEP">Buscar CEP</button>
                                 </div>
+                                <div class="form-text"> Informe o CEP e clique em buscar</div>
                             </div>
                             <div class="col-md-8 col-lg-5">
                                 <label for="logradouro" class="form-label required">Logradouro</label>
@@ -160,6 +165,11 @@
         type="button">
     </button>
 
+
+    <!-- =============================================APLICAR BIBLIOTECA DE ALERTAS -->
+     <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js">
+     </script>
+    
     <script>
         const themeToggle = document.getElementById("themeToggle");
 
