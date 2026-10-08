@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Formulário de cadastro de usuários">
     <title>Aula 1 - Cadastro de usuário</title>
+    
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Google Fonts Inter -->
+    
+        <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -58,7 +60,15 @@
             content: " *";
             color: #dc3545;
         }
+        /* Toggle do tema fixado no canto inferior direito */
+        #themeToggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
     </style>
+    
 </head>
 <body>
     <header class="page-header py-5">
@@ -143,6 +153,50 @@
         </div>
     </main>
 
+    <!-- ================================================ Aplicar dark/light mode -->
+    <button 
+        id="themeToggle" 
+        class="btn btn-outline-success ms-2" 
+        type="button">
+    </button>
+
+    <script>
+        const themeToggle = document.getElementById("themeToggle");
+
+        // Verifica se existe um tema salvo
+        let theme = localStorage.getItem("theme");
+
+        // Se não existir, usa o tema preferido como claro
+        if (!theme) {
+            theme = window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "dark"
+                : "light";
+        }
+
+        // Função para aplicar o tema
+        function applyTheme() {
+            document.documentElement.setAttribute("data-bs-theme", theme);
+
+            if (theme === "dark") {
+                themeToggle.textContent = "🌙";
+            } else {
+                themeToggle.textContent = "☀️";
+            }
+        }
+
+        // Aplica o tema ao abrir a página
+        applyTheme();
+
+        // Troca o tema ao clicar
+        themeToggle.addEventListener("click", () => {
+            theme = theme === "light" ? "dark" : "light";
+
+            localStorage.setItem("theme", theme);
+
+            applyTheme();
+        });
+    </script>
+    <!-- FIM APLICAÇÃO DARK MODE (STYLE ABAIXO DO TITLE TAMBÉM INSERIU DADOS --- ULTIMAS LINHAS)-->
     <script src="script.js" defer></script>
 </body>
 </ht
