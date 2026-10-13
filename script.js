@@ -2,6 +2,43 @@
 const form = document.querySelector('#formCadastro');
 const buscarCEP = document.querySelector('#buscarCEP'); // inserido no html na linha 117: <button class="btn btn-primary id="buscarCep">Buscar CEP</button>
 const cep = document.querySelector('#cep');
+const estado = document.querySelector('#estado');
+const cidade = document.querySelector("#cidade");
+
+// complemento da aula que faltei - - conferir no github tbm
+function mensagem(texto, tipo = "sucesso") {
+    Toastify({
+        text: texto,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        style: {
+            background: tipo === "sucesso"
+            ? "#198754"
+            : "#dc3545"
+        }
+    }).showToast();
+}
+
+// Criar opções de seleção dinamicamente
+function adicionarOpcao(select, texto, valor) {
+    select.add(new Option(texto, valor));
+}
+
+// carregar os estados disponíveis
+async function carregarEstados() {
+    try {
+        cidade.disabled = true;
+        const resposta = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome");
+        if (!resposta.ok) {
+            throw new Error("Não foi possível carregar os estados.");
+        }
+        const estados = await resposta.json();
+        estados.forEach(item => adicionarOpcao(estado, item.nome, item.sigla));
+    } catch (erro) {
+        mensagem(erro.message, "erro");
+    }
+}
 
 
 // OUVIR EVENTOS>>> Definindo eventos para os botões de ação (botãos de cadastro e reset)
